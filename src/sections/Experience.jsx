@@ -5,25 +5,25 @@ import { Briefcase, GraduationCap } from 'lucide-react';
 const timelineData = [
   {
     id: 1,
-    title: "Senior Frontend Engineer",
-    company: "TechNova Solutions",
-    period: "2024 - Present",
+    title: " Frontend Engineer",
+    // company: "TechNova Solutions",
+    // period: "2024 - Present",
     description: "Leading the frontend architecture for high-performance enterprise applications. Implementing complex 3D visualizations and ensuring pixel-perfect UI execution.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 2,
     title: "UX Developer",
-    company: "Creative Digital Agency",
-    period: "2022 - 2024",
+    // company: "Creative Digital Agency",
+    // period: "2022 - 2024",
     description: "Bridged the gap between design and development. Created immersive web experiences, award-winning marketing sites, and scalable component libraries.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 3,
     title: "Computer Science",
-    company: "University of Technology",
-    period: "2018 - 2022",
+    // company: "University of Technology",
+    // period: "2018 - 2022",
     description: "B.S. in Computer Science with a focus on Human-Computer Interaction and Computer Graphics. Graduated with honors.",
     icon: <GraduationCap className="w-5 h-5" />
   }
