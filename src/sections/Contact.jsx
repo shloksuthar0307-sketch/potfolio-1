@@ -62,7 +62,7 @@ export const Contact = () => {
                   id="name"
                   required
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-foreground/30 font-light"
-                  placeholder="John Doe"
+                  placeholder="shlok suthar"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -75,7 +75,7 @@ export const Contact = () => {
                   id="email"
                   required
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder:text-foreground/30 font-light"
-                  placeholder="john@example.com"
+                  placeholder="shlok@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
