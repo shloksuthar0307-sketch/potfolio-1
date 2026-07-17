@@ -23,8 +23,8 @@ const timelineData = [
     id: 3,
     title: "Computer Science",
     // company: "University of Technology",
-    // period: "2018 - 2022",
-    description: "B.S. in Computer Science with a focus on Human-Computer Interaction and Computer Graphics. Graduated with honors.",
+    period: "2025 - present",
+    description: "diploma in Computer Science with a focus on Human-Computer Interaction and Computer Graphics. ",
     icon: <GraduationCap className="w-5 h-5" />
   }
 ];
