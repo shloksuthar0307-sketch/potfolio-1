@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 const skillCategories = [
   {
     title: "Core / Languages",
-    skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3 / SCSS", "Python"]
+    skills: ["JavaScript (ES6+)", "HTML5", "CSS3 / SCSS", "Python"]
   },
   {
     title: "Frontend Engineering",
-    skills: ["React.js", "Next.js", "Vite", "Tailwind CSS", "Redux Toolkit"]
+    skills: ["React.js", "Vite", "Tailwind CSS", "Redux Toolkit"]
   },
   {
     title: "Creative & 3D Web",
@@ -17,7 +17,7 @@ const skillCategories = [
   },
   {
     title: "Tools & Others",
-    skills: ["Git & GitHub", "Figma", "Node.js", "RESTful APIs", "Lighthouse"]
+    skills: ["Git & GitHub", "Figma", "RESTful APIs", "Vercel", "Netlify"]
   }
 ];
 
