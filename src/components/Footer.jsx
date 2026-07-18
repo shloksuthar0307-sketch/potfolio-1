@@ -27,12 +27,12 @@ export const Footer = () => {
           <a href="https://github.com/shloksuthar0307-sketch" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors hoverable">
             <FaGithub className="w-4 h-4" />
           </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors hoverable">
+          <a href="www.linkedin.com/in/shlok-suthar2507" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors hoverable">
             <FaLinkedin className="w-4 h-4" />
           </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors hoverable">
+          {/* <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors hoverable">
             <FaTwitter className="w-4 h-4" />
-          </a>
+          </a> */}
         </div>
 
         <button 

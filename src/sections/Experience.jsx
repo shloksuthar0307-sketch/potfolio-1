@@ -6,25 +6,23 @@ const timelineData = [
   {
     id: 1,
     title: " Frontend Engineer",
-    // company: "TechNova Solutions",
-    // period: "2024 - Present",
-    description: "Leading the frontend architecture for high-performance enterprise applications. Implementing complex 3D visualizations and ensuring pixel-perfect UI execution.",
+    company: "Creative Design & Multimedia Institute",
+    period: "2025 - Present",
+    description: "Building responsive, modern, and user-friendly web applications with clean code and great user experiences.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 2,
     title: "UX Developer",
-    // company: "Creative Digital Agency",
-    // period: "2022 - 2024",
-    description: "Bridged the gap between design and development. Created immersive web experiences, award-winning marketing sites, and scalable component libraries.",
+    description: "Passionate UI/UX Developer with a strong foundation in user-centered design and responsive web development, eager to create intuitive and visually appealing digital experiences.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 3,
     title: "Computer Science",
-    // company: "University of Technology",
+   collage:"Swarrnim Startup & Innovation University",
     period: "2025 - present",
-    description: "diploma in Computer Science with a focus on Human-Computer Interaction and Computer Graphics. ",
+    description: "Pursuing a Diploma in Computer Science with a focus on software development, web technologies, and user interface design. ",
     icon: <GraduationCap className="w-5 h-5" />
   }
 ];
