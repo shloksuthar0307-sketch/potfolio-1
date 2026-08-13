@@ -94,7 +94,7 @@ const ProjectCard = ({ repo, index }) => {
     <div className="w-[300px] md:w-[450px] h-[500px] md:h-[600px] glass rounded-3xl p-8 flex flex-col justify-between flex-shrink-0 group relative overflow-hidden border border-white/10 hover:border-primary/50 transition-colors duration-500">
       
       {/* Background image mockup (since we don't have real preview images from GH API easily) */}
-      <div className="absolute top-0 right-0 p-8 text-9xl font-heading font-bold text-white/5 right-12 bottom-12 z-0 pointer-events-none select-none">
+      <div className="absolute top-0 right-0 p-8 text-9xl font-heading font-bold text-white/5  bottom-12 z-0 pointer-events-none select-none">
         0{index + 1}
       </div>
 
