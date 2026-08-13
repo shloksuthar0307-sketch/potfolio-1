@@ -25,7 +25,7 @@ const CrystalCore = () => {
   });
 
   return (
-    <group ref={groupRef} position={[0, 0.3, 4]}>
+    <group ref={groupRef} position={[-2, 0.3, -4]}>
       <Icosahedron args={[1.6, 1]}>
         <meshStandardMaterial
           color="#FFA500"
