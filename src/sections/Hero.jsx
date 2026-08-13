@@ -1,49 +1,134 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import {
+  Stars,
+  Float,
+  Icosahedron,
+  Octahedron,
+  TorusKnot,
+  MeshTransmissionMaterial,
+  Environment,
+  Sparkles,
+} from '@react-three/drei';
 import { motion } from 'framer-motion';
+
+// Central engineered core: a wireframe icosahedron with a faint solid
+// form glowing underneath it, slowly tracking the cursor.
+const CrystalCore = () => {
+  const groupRef = useRef();
+
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    const { pointer, clock } = state;
+    groupRef.current.rotation.y = clock.getElapsedTime() * 0.08 + pointer.x * 0.3;
+    groupRef.current.rotation.x = pointer.y * 0.15;
+  });
+
+  return (
+    <group ref={groupRef} position={[0, 0.3, -4]}>
+      <Icosahedron args={[1.6, 1]}>
+        <meshStandardMaterial
+          color="#aa3bff"
+          wireframe
+          emissive="#aa3bff"
+          emissiveIntensity={0.5}
+        />
+      </Icosahedron>
+      <Icosahedron args={[1.52, 1]}>
+        <meshPhysicalMaterial
+          color="#1a0b2e"
+          roughness={0.25}
+          metalness={0.7}
+          transparent
+          opacity={0.35}
+        />
+      </Icosahedron>
+    </group>
+  );
+};
+
+// A refractive glass torus knot — the "creative" counterweight to the
+// core's rigid structure.
+const GlassKnot = () => {
+  const ref = useRef();
+  useFrame((_, delta) => {
+    if (ref.current) {
+      ref.current.rotation.x += delta * 0.25;
+      ref.current.rotation.y += delta * 0.18;
+    }
+  });
+  return (
+    <Float speed={1.8} rotationIntensity={0.6} floatIntensity={1.4}>
+      <TorusKnot ref={ref} args={[0.55, 0.16, 128, 32]} position={[3.1, -1.3, -3]}>
+        <MeshTransmissionMaterial
+          color="#c084fc"
+          thickness={0.6}
+          roughness={0.05}
+          transmission={1}
+          ior={1.4}
+          chromaticAberration={0.05}
+        />
+      </TorusKnot>
+    </Float>
+  );
+};
+
+// A handful of small emissive shards drifting at different depths.
+const DriftingShards = () => {
+  const shards = useMemo(
+    () =>
+      new Array(6).fill(0).map(() => ({
+        position: [
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4,
+          -6 - Math.random() * 4,
+        ],
+        scale: 0.15 + Math.random() * 0.2,
+        speed: 1 + Math.random(),
+      })),
+    []
+  );
+
+  return (
+    <>
+      {shards.map((s, i) => (
+        <Float key={i} speed={s.speed} rotationIntensity={2} floatIntensity={2}>
+          <Octahedron args={[s.scale, 0]} position={s.position}>
+            <meshStandardMaterial
+              color="#c084fc"
+              emissive="#aa3bff"
+              emissiveIntensity={0.6}
+              roughness={0.2}
+              metalness={0.4}
+            />
+          </Octahedron>
+        </Float>
+      ))}
+    </>
+  );
+};
 
 const AnimatedShapes = () => {
   return (
     <>
-      <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-        <Sphere args={[1, 64, 64]} position={[-3, 1, -5]}>
-          <MeshDistortMaterial
-            color="#aa3bff"
-            attach="material"
-            distort={0.5}
-            speed={2}
-            roughness={0.2}
-          />
-        </Sphere>
-      </Float>
-      <Float speed={1.5} rotationIntensity={2} floatIntensity={2}>
-        <Sphere args={[0.8, 64, 64]} position={[3, -2, -3]}>
-          <MeshDistortMaterial
-            color="#c084fc"
-            attach="material"
-            distort={0.6}
-            speed={3}
-            roughness={0.1}
-          />
-        </Sphere>
-      </Float>
+      <Environment preset="night" />
+      <CrystalCore />
+      <GlassKnot />
+      <DriftingShards />
+      <Sparkles count={60} scale={[10, 6, 6]} size={2} speed={0.3} color="#67e8f9" opacity={0.5} />
     </>
   );
 };
 
 export const Hero = () => {
-  // Staggered text animation
-  const title = "Creative".split("");
-  const subtitle = "Frontend Engineer".split("");
-
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.4} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
+          <pointLight position={[-4, -2, 2]} intensity={1.2} color="#aa3bff" />
           <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
           <AnimatedShapes />
         </Canvas>
