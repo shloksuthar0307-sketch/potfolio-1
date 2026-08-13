@@ -17,7 +17,7 @@ const skillCategories = [
   },
   {
     title: "Tools & Others",
-    skills: ["Git & GitHub", "Figma", "RESTful APIs", "Vercel", "Netlify"]
+    skills: ["Git & GitHub", "Figma", "RESTful APIs", "Vercel", "Netlify","D-jango"]
   }
 ];
 
