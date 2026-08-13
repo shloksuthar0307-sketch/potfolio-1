@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useCallback } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Stars,
@@ -11,27 +11,118 @@ import {
   Sparkles,
 } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 
-// Central engineered core: a wireframe icosahedron with a faint solid
-// form glowing underneath it, slowly tracking the cursor.
-const CrystalCore = () => {
+// ---------------------------------------------------------------------
+// Hit effect: a short-lived radial spray of glowing "bullets" fired
+// outward from whatever shape was just touched, plus a matching flash
+// of sparkles. Fully self-cleaning — it removes itself from the parent's
+// state once its lifespan is up, no external timers needed.
+// ---------------------------------------------------------------------
+const BulletBurst = ({ id, position, color, onDone }) => {
+  const born = useRef(performance.now());
+  const finished = useRef(false);
   const groupRef = useRef();
+
+  const bullets = useMemo(() => {
+    const count = 10;
+    return new Array(count).fill(0).map(() => ({
+      dir: new THREE.Vector3(
+        Math.random() - 0.5,
+        Math.random() - 0.5,
+        Math.random() - 0.5
+      ).normalize(),
+      speed: 3 + Math.random() * 2,
+    }));
+  }, []);
+
+  useFrame(() => {
+    const elapsed = (performance.now() - born.current) / 1000;
+    const lifespan = 0.7;
+
+    if (elapsed > lifespan) {
+      if (!finished.current) {
+        finished.current = true;
+        onDone(id);
+      }
+      return;
+    }
+
+    const t = elapsed / lifespan;
+    if (groupRef.current) {
+      groupRef.current.children.forEach((child, i) => {
+        const b = bullets[i];
+        if (!b) return;
+        const dist = b.speed * elapsed;
+        child.position.set(b.dir.x * dist, b.dir.y * dist, b.dir.z * dist);
+        child.scale.setScalar(Math.max(0, 1 - t));
+      });
+    }
+  });
+
+  return (
+    <group position={position}>
+      <group ref={groupRef}>
+        {bullets.map((_, i) => (
+          <mesh key={i}>
+            <sphereGeometry args={[0.05, 6, 6]} />
+            <meshBasicMaterial color={color} toneMapped={false} />
+          </mesh>
+        ))}
+      </group>
+      <Sparkles count={16} scale={1.4} size={3} speed={1.2} color={color} opacity={0.9} />
+    </group>
+  );
+};
+
+// ---------------------------------------------------------------------
+// Central engineered core: a wireframe icosahedron with a faint solid
+// form glowing underneath it, tracking the cursor. Touch it to fire.
+// ---------------------------------------------------------------------
+const CrystalCore = ({ onHit }) => {
+  const groupRef = useRef();
+  const punchAt = useRef(0);
+  const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
     if (!groupRef.current) return;
     const { pointer, clock } = state;
     groupRef.current.rotation.y = clock.getElapsedTime() * 0.08 + pointer.x * 0.3;
     groupRef.current.rotation.x = pointer.y * 0.15;
+
+    const since = (performance.now() - punchAt.current) / 1000;
+    const punch = since < 0.25 ? 1 + 0.25 * (1 - since / 0.25) : 1;
+    groupRef.current.scale.setScalar(punch);
   });
 
+  const handleHit = (e) => {
+    e.stopPropagation();
+    punchAt.current = performance.now();
+    const worldPos = new THREE.Vector3();
+    e.object.getWorldPosition(worldPos);
+    onHit(worldPos, '#aa3bff');
+  };
+
   return (
-    <group ref={groupRef} position={[-2, 0.3, -4]}>
+    <group
+      ref={groupRef}
+      position={[-3.5, 0.3, -4]}
+      onPointerDown={handleHit}
+      onPointerOver={() => {
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = 'auto';
+      }}
+    >
       <Icosahedron args={[1.6, 1]}>
         <meshStandardMaterial
-          color="#FFA500"
+          color="#aa3bff"
           wireframe
           emissive="#aa3bff"
-          emissiveIntensity={0.5}
+          emissiveIntensity={hovered ? 0.9 : 0.5}
         />
       </Icosahedron>
       <Icosahedron args={[1.52, 1]}>
@@ -47,19 +138,42 @@ const CrystalCore = () => {
   );
 };
 
+// ---------------------------------------------------------------------
 // A refractive glass torus knot — the "creative" counterweight to the
-// core's rigid structure.
-const GlassKnot = () => {
+// core's rigid structure. Touch it to fire.
+// ---------------------------------------------------------------------
+const GlassKnot = ({ onHit }) => {
   const ref = useRef();
+  const punchAt = useRef(0);
+
   useFrame((_, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x += delta * 0.25;
-      ref.current.rotation.y += delta * 0.18;
-    }
+    if (!ref.current) return;
+    ref.current.rotation.x += delta * 0.25;
+    ref.current.rotation.y += delta * 0.18;
+
+    const since = (performance.now() - punchAt.current) / 1000;
+    const punch = since < 0.25 ? 1 + 0.3 * (1 - since / 0.25) : 1;
+    ref.current.scale.setScalar(punch);
   });
+
+  const handleHit = (e) => {
+    e.stopPropagation();
+    punchAt.current = performance.now();
+    const worldPos = new THREE.Vector3();
+    e.object.getWorldPosition(worldPos);
+    onHit(worldPos, '#c084fc');
+  };
+
   return (
     <Float speed={1.8} rotationIntensity={0.6} floatIntensity={1.4}>
-      <TorusKnot ref={ref} args={[0.55, 0.16, 128, 32]} position={[3.1, -1.3, -3]}>
+      <TorusKnot
+        ref={ref}
+        args={[0.55, 0.16, 128, 32]}
+        position={[3.1, -1.3, -3]}
+        onPointerDown={handleHit}
+        onPointerOver={() => (document.body.style.cursor = 'pointer')}
+        onPointerOut={() => (document.body.style.cursor = 'auto')}
+      >
         <MeshTransmissionMaterial
           color="#c084fc"
           thickness={0.6}
@@ -73,8 +187,52 @@ const GlassKnot = () => {
   );
 };
 
-// A handful of small emissive shards drifting at different depths.
-const DriftingShards = () => {
+// ---------------------------------------------------------------------
+// A single drifting shard. Touch it to fire — each shard reacts
+// independently with its own recoil punch.
+// ---------------------------------------------------------------------
+const Shard = ({ position, scale, speed, onHit }) => {
+  const meshRef = useRef();
+  const punchAt = useRef(0);
+
+  useFrame(() => {
+    if (!meshRef.current) return;
+    const since = (performance.now() - punchAt.current) / 1000;
+    const punch = since < 0.25 ? 1 + 0.6 * (1 - since / 0.25) : 1;
+    meshRef.current.scale.setScalar(punch);
+  });
+
+  const handleHit = (e) => {
+    e.stopPropagation();
+    punchAt.current = performance.now();
+    const worldPos = new THREE.Vector3();
+    e.object.getWorldPosition(worldPos);
+    onHit(worldPos, '#67e8f9');
+  };
+
+  return (
+    <Float speed={speed} rotationIntensity={2} floatIntensity={2}>
+      <Octahedron
+        ref={meshRef}
+        args={[scale, 0]}
+        position={position}
+        onPointerDown={handleHit}
+        onPointerOver={() => (document.body.style.cursor = 'pointer')}
+        onPointerOut={() => (document.body.style.cursor = 'auto')}
+      >
+        <meshStandardMaterial
+          color="#c084fc"
+          emissive="#aa3bff"
+          emissiveIntensity={0.6}
+          roughness={0.2}
+          metalness={0.4}
+        />
+      </Octahedron>
+    </Float>
+  );
+};
+
+const DriftingShards = ({ onHit }) => {
   const shards = useMemo(
     () =>
       new Array(6).fill(0).map(() => ({
@@ -92,30 +250,39 @@ const DriftingShards = () => {
   return (
     <>
       {shards.map((s, i) => (
-        <Float key={i} speed={s.speed} rotationIntensity={2} floatIntensity={2}>
-          <Octahedron args={[s.scale, 0]} position={s.position}>
-            <meshStandardMaterial
-              color="#c084fc"
-              emissive="#aa3bff"
-              emissiveIntensity={0.6}
-              roughness={0.2}
-              metalness={0.4}
-            />
-          </Octahedron>
-        </Float>
+        <Shard key={i} {...s} onHit={onHit} />
       ))}
     </>
   );
 };
 
+// ---------------------------------------------------------------------
+// Scene root: owns the list of active bullet bursts so any shape can
+// trigger one on touch, and each burst removes itself when it's done.
+// ---------------------------------------------------------------------
 const AnimatedShapes = () => {
+  const [bursts, setBursts] = useState([]);
+  const nextId = useRef(0);
+
+  const triggerBurst = useCallback((position, color) => {
+    const id = nextId.current++;
+    setBursts((prev) => [...prev, { id, position: position.clone(), color }]);
+  }, []);
+
+  const removeBurst = useCallback((id) => {
+    setBursts((prev) => prev.filter((b) => b.id !== id));
+  }, []);
+
   return (
     <>
       <Environment preset="night" />
-      <CrystalCore />
-      <GlassKnot />
-      <DriftingShards />
+      <CrystalCore onHit={triggerBurst} />
+      <GlassKnot onHit={triggerBurst} />
+      <DriftingShards onHit={triggerBurst} />
       <Sparkles count={60} scale={[10, 6, 6]} size={2} speed={0.3} color="#67e8f9" opacity={0.5} />
+      {bursts.map((b) => (
+        <BulletBurst key={b.id} id={b.id} position={b.position} color={b.color} onDone={removeBurst} />
+      ))}
     </>
   );
 };
