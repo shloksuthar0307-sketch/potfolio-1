@@ -25,10 +25,10 @@ const CrystalCore = () => {
   });
 
   return (
-    <group ref={groupRef} position={[0, 0.3, -4]}>
+    <group ref={groupRef} position={[0, 0.3, 4]}>
       <Icosahedron args={[1.6, 1]}>
         <meshStandardMaterial
-          color="#aa3bff"
+          color="#FFA500"
           wireframe
           emissive="#aa3bff"
           emissiveIntensity={0.5}
