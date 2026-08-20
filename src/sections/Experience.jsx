@@ -8,15 +8,15 @@ const timelineData = [
     title: "Full-stack Developer",
     company: "Creative Design & Multimedia Institute",
     period: "2022 - Present",
-    description: "Leading the frontend architecture for high-traffic WebGL-powered experiences. Spearheaded the transition to React Three Fiber, improving performance by 40% and user engagement by 60%. Mentoring junior developers.",
+    description: "Leading end-to-end full-stack architectures for high-traffic applications. Spearheaded the transition to a modern Node.js and React stack, improving API response times by 40% and user engagement by 60%.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 2,
-    title: "Frontend UI/UX Developer",
+    title: "Full-stack UI/UX Developer",
     company: "Creative Design & Multimedia Institute",
     period: "2021 - 2024",
-    description: "Developed responsive, pixel-perfect user interfaces with React and GSAP. Collaborated closely with designers to bridge the gap between design and engineering, resulting in multiple award-winning site launches.",
+    description: "Developed responsive, pixel-perfect user interfaces and robust backend APIs. Collaborated closely with designers and product managers to deliver seamless, full-stack digital products.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
@@ -24,7 +24,7 @@ const timelineData = [
     title: "Diploma in Computer Science",
     company: "Swarrnim Startup & Innovation University",
     period: "2025 - present",
-    description: "Graduated with honors, focusing on software development, web technologies, and interactive computer graphics.",
+    description: " focusing on software development, web technologies, and interactive computer graphics.",
     icon: <GraduationCap className="w-5 h-5" />
   }
 ];

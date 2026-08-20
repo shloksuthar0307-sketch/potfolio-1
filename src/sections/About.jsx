@@ -78,8 +78,8 @@ export const About = () => {
           
           <div className="space-y-6 text-foreground/70 text-lg reveal-up opacity-0 font-light leading-relaxed">
             <p>
-              I am a Creative Ful-stack Developer moving beyond standard interfaces. 
-              My expertise lies in building interactive narratives, seamlessly blending logic with aesthetics 
+              I am a Creative Full-stack Developer moving beyond standard interfaces. 
+              My expertise lies in building end-to-end applications, seamlessly blending robust backend logic with immersive aesthetics 
               to produce award-winning experiences.
             </p>
             <p>

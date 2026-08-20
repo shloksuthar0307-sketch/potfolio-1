@@ -177,7 +177,7 @@ export const Hero = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="max-w-xl text-lg md:text-xl text-foreground/60 mb-10 font-light"
         >
-          Over  years of experience crafting high-performance, immersive web architectures and premium 3D user interfaces.
+          Over 5 years of experience crafting high-performance, immersive full-stack web architectures and premium 3D user interfaces.
         </motion.p>
 
         <motion.div

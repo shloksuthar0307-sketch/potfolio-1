@@ -25,9 +25,9 @@ const skillCategories = [
     color: "rgba(232, 121, 249, 0.4)" // fuchsia
   },
   {
-    title: "Architecture & Tools",
+    title: "Backend & Database",
     icon: <Wrench className="w-6 h-6 text-emerald-400" />,
-    skills: ["Git & GitHub", "Figma", "RESTful APIs", "Vercel", "Django"],
+    skills: ["Node.js", "Express", "Django", "PostgreSQL", "RESTful APIs"],
     color: "rgba(52, 211, 153, 0.4)" // emerald
   }
 ];
