@@ -15,7 +15,7 @@ const timelineData = [
     id: 2,
     title: "Frontend UI/UX Developer",
     company: "Creative Design & Multimedia Institute",
-    period: "2011 - 2024",
+    period: "2021 - 2024",
     description: "Developed responsive, pixel-perfect user interfaces with React and GSAP. Collaborated closely with designers to bridge the gap between design and engineering, resulting in multiple award-winning site launches.",
     icon: <Briefcase className="w-5 h-5" />
   },
