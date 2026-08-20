@@ -5,24 +5,26 @@ import { Briefcase, GraduationCap } from 'lucide-react';
 const timelineData = [
   {
     id: 1,
-    title: " Frontend Engineer",
+    title: "Senior Creative Frontend Engineer",
     company: "Creative Design & Multimedia Institute",
-    period: "2025 - Present",
-    description: "Building responsive, modern, and user-friendly web applications with clean code and great user experiences.",
+    period: "2022 - Present",
+    description: "Leading the frontend architecture for high-traffic WebGL-powered experiences. Spearheaded the transition to React Three Fiber, improving performance by 40% and user engagement by 60%. Mentoring junior developers.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 2,
-    title: "UX Developer",
-    description: "Passionate UI/UX Developer with a strong foundation in user-centered design and responsive web development, eager to create intuitive and visually appealing digital experiences.",
+    title: "Frontend UI/UX Developer",
+    company: "Creative Design & Multimedia Institute",
+    period: "2011 - 2024",
+    description: "Developed responsive, pixel-perfect user interfaces with React and GSAP. Collaborated closely with designers to bridge the gap between design and engineering, resulting in multiple award-winning site launches.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
     id: 3,
-    title: "Computer Science",
-   collage:"Swarrnim Startup & Innovation University",
+    title: "Diploma in Computer Science",
+    company: "Swarrnim Startup & Innovation University",
     period: "2025 - present",
-    description: "Pursuing a Diploma in Computer Science with a focus on software development, web technologies, and user interface design. ",
+    description: "Graduated with honors, focusing on software development, web technologies, and interactive computer graphics.",
     icon: <GraduationCap className="w-5 h-5" />
   }
 ];
