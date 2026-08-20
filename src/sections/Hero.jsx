@@ -159,7 +159,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Full
+            Full-stack
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -167,7 +167,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-cyan-400"
           >
-            stack Developer
+            Developer
           </motion.div>
         </h1>
 
