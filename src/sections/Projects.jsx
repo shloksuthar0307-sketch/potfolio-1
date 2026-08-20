@@ -119,7 +119,7 @@ const ProjectCard = ({ repo, index }) => {
         scale: isHovered ? 1.02 : 1,
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="w-[300px] md:w-[450px] h-[500px] md:h-[600px] rounded-3xl p-8 flex flex-col justify-between flex-shrink-0 group relative overflow-hidden bg-white/[0.02] border border-white/10 flex-shrink-0 perspective-1000"
+      className="w-[300px] md:w-[450px] h-[500px] md:h-[600px] rounded-3xl p-8 flex flex-col justify-between flex-shrink-0 group relative overflow-hidden bg-white/[0.02] border border-white/10 perspective-1000"
       style={{ transformStyle: 'preserve-3d' }}
     >
       
