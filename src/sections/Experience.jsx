@@ -5,7 +5,7 @@ import { Briefcase, GraduationCap } from 'lucide-react';
 const timelineData = [
   {
     id: 1,
-    title: "Senior Creative Frontend Engineer",
+    title: "Full-stack Developer",
     company: "Creative Design & Multimedia Institute",
     period: "2022 - Present",
     description: "Leading the frontend architecture for high-traffic WebGL-powered experiences. Spearheaded the transition to React Three Fiber, improving performance by 40% and user engagement by 60%. Mentoring junior developers.",

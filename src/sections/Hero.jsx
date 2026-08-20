@@ -159,7 +159,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Senior
+            Full
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -167,7 +167,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-cyan-400"
           >
-            Frontend Engineer
+            stack Developer
           </motion.div>
         </h1>
 
@@ -177,7 +177,7 @@ export const Hero = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="max-w-xl text-lg md:text-xl text-foreground/60 mb-10 font-light"
         >
-          Over 5 years of experience crafting high-performance, immersive web architectures and premium 3D user interfaces.
+          Over  years of experience crafting high-performance, immersive web architectures and premium 3D user interfaces.
         </motion.p>
 
         <motion.div
